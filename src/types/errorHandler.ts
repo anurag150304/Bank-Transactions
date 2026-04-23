@@ -3,14 +3,7 @@
  * Extends the built-in Error class to include HTTP status codes.
  */
 export class errHandler extends Error {
-    /**
-     * HTTP status code for the error.
-     */
     public status: number;
-
-    /**
-     * Error message.
-     */
     public message: string;
 
     /**

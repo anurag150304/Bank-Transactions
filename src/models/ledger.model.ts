@@ -13,11 +13,11 @@ const ledgerSchema = new Schema<LedgerSchema, Model<LedgerSchema>>({
         index: true,
         immutable: true // accountId should not be changed once set
     },
-    balance: {
+    amount: {
         type: Number,
-        required: [true, "Balance is required!"],
-        min: [0, "Balance cannot be negative!"],
-        immutable: true // balance should not be changed directly, it should be updated through transactions
+        required: [true, "Amount is required!"],
+        min: [0, "Amount cannot be negative!"],
+        immutable: true // amount should not be changed directly, it should be updated through transactions
     },
     transactionId: {
         type: Types.ObjectId,

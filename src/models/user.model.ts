@@ -26,6 +26,11 @@ const userSchema = new Schema<UserSchema, Model<UserSchema>, UserMethods>({
         trim: true,
         select: false,
         minLength: [6, "Password should contain more than 6 chanracter"]
+    },
+    systemUser: {
+        type: Boolean,
+        default: false,
+        immutable: true // systemUser field should not be changed once set
     }
 }, { timestamps: true });
 
@@ -44,7 +49,7 @@ userSchema.pre("save", async function () {
  * @param {string} password - Plain text password to compare.
  * @returns {Promise<boolean>} - True if passwords match, false otherwise.
  */
-userSchema.methods.comparePassword = async function (password: string) {
+userSchema.methods.comparePassword = async function (password: string): Promise<boolean> {
     return await bcrypt.compare(password, this.password);
 }
 
