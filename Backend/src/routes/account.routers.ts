@@ -5,4 +5,5 @@ import { createAccount } from "../controllers/account.controller.js";
 
 const router: Router = Router();
 router.post("/create", asyncWrap(authUser), asyncWrap(createAccount));
+router.get("/profile", asyncWrap(authUser), asyncWrap());
 export default router;

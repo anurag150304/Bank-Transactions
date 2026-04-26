@@ -31,3 +31,24 @@ export async function createAccount(req: Request, res: Response) {
         }
     });
 }
+
+export async function getAccount(req: Request, res: Response) {
+    const user = req.user;
+
+    const account = await accountModel.findById(user._id).populate<{ userId: { name: string } }>("userId", "name");
+    if (!account) throw new errHandler(404, "Account not found for the user!");
+
+    const currentBalance = await account.getBalance();
+
+    return res.status(200).json({
+        status: true,
+        message: "Account details fetched successfully",
+        data: {
+            accId: account.id,
+            accHolder: account.userId.name,
+            status: account.status,
+            balance: currentBalance,
+            currency: account.currency
+        }
+    });
+}

@@ -61,6 +61,8 @@ accSchema.methods.getBalance = async function () {
     ]);
 
     // If there are no ledger entries for the account, then the balance will be 0
+    // credit means inc +
+    // debit means dec -
     return balanceData[0]?.totalCredit - balanceData[0]?.totalDebit || 0;
 }
 
