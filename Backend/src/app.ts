@@ -6,6 +6,7 @@ import authRoutes from "./routes/user.routes.js";
 import accountRoutes from "./routes/account.routers.js";
 import e, { type Application, type NextFunction, type Request, type Response } from "express";
 import type { errHandler } from "./types/errorHandler.js";
+import transactionRoutes from "./routes/transaction.routes.js";
 
 const app: Application = e();
 
@@ -21,6 +22,7 @@ app.get("/api", (_: Request, res: Response) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/account", accountRoutes);
+app.use("/api/transaction", transactionRoutes);
 
 /**
  * Global error handler middleware.

@@ -16,8 +16,8 @@ export async function createTransaction(req: Request, res: Response) {
     if (!isValidObjectId(fromAccId)) throw new errHandler(409, "Invalid from account id!")
     if (!isValidObjectId(toAccId)) throw new errHandler(409, "Invalid to account id!");
 
-    const fromAccInfo = await accModel.findById(fromAccId);
-    const toAccInfo = await accModel.findById(toAccId);
+    const fromAccInfo = await accModel.findOne({ userId: fromAccId });
+    const toAccInfo = await accModel.findOne({ userId: toAccId });
 
     // both accounts should exist
     if (!fromAccInfo || !toAccInfo) {
@@ -34,7 +34,9 @@ export async function createTransaction(req: Request, res: Response) {
     }
 
     // from account should be owned by th authenticated user
-    if (!fromAccInfo._id.equals(req.user._id)) {
+    console.log(fromAccInfo.userId._id);
+    console.log(req.user._id);
+    if (!fromAccInfo.userId._id.equals(req.user._id)) {
         throw new errHandler(403, "Unauthorized to perform transaction from this account!");
     }
 
@@ -128,7 +130,7 @@ export async function transferFunds(req: Request, res: Response) {
     if (!isValidObjectId(toAccId)) throw new errHandler(409, "Invalid Receiver's account id!");
 
     // check if the to account exists and is active
-    const toAccInfo = await accModel.findById(toAccId);
+    const toAccInfo = await accModel.findOne({ userId: toAccId });
     if (!toAccInfo) {
         throw new errHandler(404, "Receiver's account not found!");
     }

@@ -34,8 +34,9 @@ export async function createAccount(req: Request, res: Response) {
 
 export async function getAccount(req: Request, res: Response) {
     const user = req.user;
+    console.log(user);
 
-    const account = await accountModel.findById(user._id).populate<{ userId: { name: string } }>("userId", "name");
+    const account = await accountModel.findOne({ userId: user._id }).populate<{ userId: { name: string } }>("userId", "name");
     if (!account) throw new errHandler(404, "Account not found for the user!");
 
     const currentBalance = await account.getBalance();
