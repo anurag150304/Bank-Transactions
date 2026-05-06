@@ -1,9 +1,8 @@
 import cors from "cors";
-
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/user.routes.js";
-import accountRoutes from "./routes/account.routers.js";
+import accountRoutes from "./routes/account.routes.js";
 import e, { type Application, type NextFunction, type Request, type Response } from "express";
 import type { errHandler } from "./types/errorHandler.js";
 import transactionRoutes from "./routes/transaction.routes.js";
